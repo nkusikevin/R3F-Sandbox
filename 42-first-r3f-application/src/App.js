@@ -6,10 +6,6 @@ function App() {
 	return (
 		<Canvas>
 			<Experience />
-			<mesh>
-				<torusKnotGeometry />
-				<meshNormalMaterial />
-			</mesh>
 		</Canvas>
 	);
 }
