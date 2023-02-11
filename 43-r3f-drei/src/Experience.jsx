@@ -7,6 +7,7 @@ import {
 	PivotControls,
 	Html,
 	Text,
+	Float,
 } from "@react-three/drei";
 
 // extend({ OrbitControls })
@@ -48,13 +49,15 @@ export default function Experience() {
 				<planeGeometry />
 				<meshStandardMaterial color='greenyellow' />
 			</mesh>
-			<Text
-				font='./bangers-v20-latin-regular.woff'
-				fontSize={1}
-				color='salmon'
-				position-y={2}>
-				I Love R3F
-			</Text>
+			<Float speed={5} floatIntensity={5}>
+				<Text
+					font='./bangers-v20-latin-regular.woff'
+					fontSize={1}
+					color='salmon'
+					position-y={2}>
+					I Love R3F
+				</Text>
+			</Float>
 		</>
 	);
 }
