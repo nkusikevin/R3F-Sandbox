@@ -1,5 +1,6 @@
 import { OrbitControls } from "@react-three/drei";
 import { useControls } from "leva";
+import { Perf } from "r3f-perf";
 
 export default function Experience() {
 	const { position, scale, color } = useControls("sphere", {
@@ -10,8 +11,13 @@ export default function Experience() {
 		myInput: { value: "hello", onChange: (v) => console.log(v) },
 		mySelect: { value: "b", options: { a: "A", b: "B", c: "C" } },
 	});
+
+	const { perfVisible } = useControls("perf", {
+		perfVisible: true,
+	});
 	return (
 		<>
+			{perfVisible && <Perf position='top-left' />}
 			<OrbitControls makeDefault />
 
 			<directionalLight position={[1, 2, 3]} intensity={1.5} />
