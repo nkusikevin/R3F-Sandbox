@@ -9,6 +9,7 @@ import {
 	ContactShadows,
 	Sky,
 	Environment,
+	Lightformer,
 } from "@react-three/drei";
 import { useRef } from "react";
 import { Perf } from "r3f-perf";
@@ -60,21 +61,40 @@ export default function Experience() {
 		sunPosition: { value: [1, 2, 3], label: "Position" },
 	});
 
-	const { envMapIntensity } = useControls("env map", {
-		envMapIntensity: {
-			value: 1,
-			min: 0,
-			max: 12,
-			step: 0.01,
-			label: "Intensity",
-		},
-	});
+	const { envMapIntensity, envMapHeight, envMapRadius, envMapScale } =
+		useControls("env map", {
+			envMapIntensity: {
+				value: 1,
+				min: 0,
+				max: 12,
+				step: 0.01,
+				label: "Intensity",
+			},
+			envMapHeight: { value: 7, min: 0, max: 12, step: 0.01, label: "Height" },
+			envMapRadius: { value: 28, min: 0, max: 12, step: 0.01, label: "Radius" },
+			envMapScale: { value: 100, min: 0, max: 12, step: 0.01, label: "Scale" },
+		});
 	return (
 		<>
 			<Environment
-				background
-				files={"./environmentMaps/the_sky_is_on_fire_2k.hdr"}
-			/>
+				ground={{
+					height: envMapHeight,
+					radius: envMapRadius,
+					scale: envMapScale,
+				}}
+				preset='sunset'>
+				<Lightformer
+					position-z={-5}
+					scale={10}
+					color='#316d39'
+					intensity={10}
+					form='ring'
+				/>
+				{/* <mesh position-z={-1} scale={10}>
+					<planeGeometry />
+					<meshStandardMaterial color='greenyellow' />
+				</mesh> */}
+			</Environment>
 			{/* <BakeShadows /> */}
 
 			<Perf position='top-left' />
@@ -131,7 +151,7 @@ export default function Experience() {
 				sunPosition={sunPosition}
 			/> */}
 
-			<mesh castShadow position-x={-2}>
+			<mesh castShadow position-x={-2} position-y={1}>
 				<sphereGeometry />
 				<meshStandardMaterial
 					color='orange'
@@ -139,7 +159,7 @@ export default function Experience() {
 				/>
 			</mesh>
 
-			<mesh castShadow ref={cube} position-x={2} scale={1.5}>
+			<mesh castShadow ref={cube} position-x={2} scale={1.5} position-y={1}>
 				<boxGeometry />
 				<meshStandardMaterial
 					color='mediumpurple'
@@ -147,13 +167,13 @@ export default function Experience() {
 				/>
 			</mesh>
 
-			<mesh position-y={-1} rotation-x={-Math.PI * 0.5} scale={10}>
+			{/* <mesh position-y={-1} rotation-x={-Math.PI * 0.5} scale={10}>
 				<planeGeometry />
 				<meshStandardMaterial
 					color='greenyellow'
 					envMapIntensity={envMapIntensity}
 				/>
-			</mesh>
+			</mesh> */}
 		</>
 	);
 }
