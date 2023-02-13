@@ -7,6 +7,7 @@ import {
 	AccumulativeShadows,
 	RandomizedLight,
 	ContactShadows,
+	Sky,
 } from "@react-three/drei";
 import { useRef } from "react";
 import { Perf } from "r3f-perf";
@@ -34,6 +35,28 @@ export default function Experience() {
 		color: { value: "#316d39", label: "Color" },
 		opacity: { value: 0.8, min: 0, max: 1, step: 0.01, label: "Opacity" },
 		blur: { value: 0.5, min: 0, max: 1, step: 0.01, label: "Blur" },
+	});
+
+	const {
+		sunColor,
+		sunIntensity,
+		sunBias,
+		sunRadius,
+		sunAmbient,
+		sunPosition,
+	} = useControls("sun", {
+		sunColor: { value: "#d8b123", label: "Color" },
+		sunIntensity: {
+			value: 1,
+			min: 0,
+			max: 1,
+			step: 0.01,
+			label: "Intensity",
+		},
+		sunBias: { value: 0.001, min: 0, max: 1, step: 0.01, label: "Bias" },
+		sunRadius: { value: 1, min: 0, max: 1, step: 0.01, label: "Radius" },
+		sunAmbient: { value: 0.5, min: 0, max: 1, step: 0.01, label: "Ambient" },
+		sunPosition: { value: [1, 2, 3], label: "Position" },
 	});
 
 	return (
@@ -71,7 +94,7 @@ export default function Experience() {
 				frames={1}
 			/>
 			<directionalLight
-				position={[1, 2, 3]}
+				position={sunPosition}
 				intensity={1.5}
 				ref={directionLightRef}
 				castShadow
@@ -84,6 +107,14 @@ export default function Experience() {
 				shadow-camera-bottom={-5}
 			/>
 			<ambientLight intensity={0.5} />
+			<Sky
+				sunColor={sunColor}
+				sunIntensity={sunIntensity}
+				sunBias={sunBias}
+				sunRadius={sunRadius}
+				sunAmbient={sunAmbient}
+				sunPosition={sunPosition}
+			/>
 
 			<mesh castShadow position-x={-2}>
 				<sphereGeometry />
