@@ -6,10 +6,12 @@ import {
 	softShadows,
 	AccumulativeShadows,
 	RandomizedLight,
+	ContactShadows,
 } from "@react-three/drei";
 import { useRef } from "react";
 import { Perf } from "r3f-perf";
 import * as THREE from "three";
+import { useControls } from "leva";
 
 // softShadows({
 // 	frustum: 3.75,
@@ -22,10 +24,16 @@ import * as THREE from "three";
 export default function Experience() {
 	const cube = useRef();
 	const directionLightRef = useRef();
-	// useHelper(directionLightRef, THREE.DirectionalLightHelper, 0.5, "hotpink");
+	useHelper(directionLightRef, THREE.DirectionalLightHelper, 0.5, "hotpink");
 
 	useFrame((state, delta) => {
 		cube.current.rotation.y += delta * 0.2;
+	});
+
+	const { color, opacity, blur } = useControls("contact shadow", {
+		color: { value: "#316d39", label: "Color" },
+		opacity: { value: 0.8, min: 0, max: 1, step: 0.01, label: "Opacity" },
+		blur: { value: 0.5, min: 0, max: 1, step: 0.01, label: "Blur" },
 	});
 
 	return (
@@ -35,7 +43,7 @@ export default function Experience() {
 
 			<OrbitControls makeDefault />
 
-			<AccumulativeShadows
+			{/* <AccumulativeShadows
 				position={[0, -0.99, 0]}
 				scale={10}
 				color='#316d39'
@@ -51,7 +59,17 @@ export default function Experience() {
 					ambient={0.5}
 					position={[1, 2, 3]}
 				/>
-			</AccumulativeShadows>
+			</AccumulativeShadows> */}
+			<ContactShadows
+				position={[0, -0.99, 0]}
+				scale={10}
+				resolution={512}
+				far={5}
+				color={color}
+				opacity={opacity}
+				blur={blur}
+				frames={1}
+			/>
 			<directionalLight
 				position={[1, 2, 3]}
 				intensity={1.5}
