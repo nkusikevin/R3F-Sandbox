@@ -10,6 +10,7 @@ import {
 	Sky,
 	Environment,
 	Lightformer,
+	Stage,
 } from "@react-three/drei";
 import { useRef } from "react";
 import { Perf } from "r3f-perf";
@@ -76,7 +77,7 @@ export default function Experience() {
 		});
 	return (
 		<>
-			<Environment
+			{/* <Environment
 				ground={{
 					height: envMapHeight,
 					radius: envMapRadius,
@@ -90,12 +91,12 @@ export default function Experience() {
 					intensity={10}
 					form='ring'
 				/>
-				{/* <mesh position-z={-1} scale={10}>
+				<mesh position-z={-1} scale={10}>
 					<planeGeometry />
 					<meshStandardMaterial color='greenyellow' />
-				</mesh> */}
+				</mesh>
 			</Environment>
-			{/* <BakeShadows /> */}
+			<BakeShadows /> */}
 
 			<Perf position='top-left' />
 
@@ -118,7 +119,7 @@ export default function Experience() {
 					position={[1, 2, 3]}
 				/>
 			</AccumulativeShadows> */}
-			<ContactShadows
+			{/* <ContactShadows
 				position={[0, -0.99, 0]}
 				scale={10}
 				resolution={512}
@@ -127,7 +128,7 @@ export default function Experience() {
 				opacity={opacity}
 				blur={blur}
 				frames={1}
-			/>
+			/> */}
 			{/* <directionalLight
 				position={sunPosition}
 				intensity={1.5}
@@ -151,7 +152,7 @@ export default function Experience() {
 				sunPosition={sunPosition}
 			/> */}
 
-			<mesh castShadow position-x={-2} position-y={1}>
+			{/* <mesh castShadow position-x={-2} position-y={1}>
 				<sphereGeometry />
 				<meshStandardMaterial
 					color='orange'
@@ -165,7 +166,7 @@ export default function Experience() {
 					color='mediumpurple'
 					envMapIntensity={envMapIntensity}
 				/>
-			</mesh>
+			</mesh> */}
 
 			{/* <mesh position-y={-1} rotation-x={-Math.PI * 0.5} scale={10}>
 				<planeGeometry />
@@ -174,6 +175,34 @@ export default function Experience() {
 					envMapIntensity={envMapIntensity}
 				/>
 			</mesh> */}
+			<Stage
+				shadows={{
+					type: "contact",
+					resolution: 512,
+					far: 5,
+					opacity: 0.8,
+					blur: 0.5,
+					frames: 1,
+				}}
+				environment='sunset'
+				preset='portrait'
+				intensity={2}>
+				<mesh castShadow position-x={-2} position-y={1}>
+					<sphereGeometry />
+					<meshStandardMaterial
+						color='orange'
+						envMapIntensity={envMapIntensity}
+					/>
+				</mesh>
+
+				<mesh castShadow ref={cube} position-x={2} scale={1.5} position-y={1}>
+					<boxGeometry />
+					<meshStandardMaterial
+						color='mediumpurple'
+						envMapIntensity={envMapIntensity}
+					/>
+				</mesh>
+			</Stage>
 		</>
 	);
 }
