@@ -72,14 +72,8 @@ export default function Experience() {
 	return (
 		<>
 			<Environment
-				files={[
-					"./environmentMaps/2/px.jpg",
-					"./environmentMaps/2/nx.jpg",
-					"./environmentMaps/2/py.jpg",
-					"./environmentMaps/2/ny.jpg",
-					"./environmentMaps/2/px.jpg",
-					"./environmentMaps/2/nz.jpg",
-				]}
+				background
+				files={"./environmentMaps/the_sky_is_on_fire_2k.hdr"}
 			/>
 			{/* <BakeShadows /> */}
 
