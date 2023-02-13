@@ -4,22 +4,25 @@ import {
 	useHelper,
 	BakeShadows,
 	softShadows,
+	AccumulativeShadows,
+	RandomizedLight,
 } from "@react-three/drei";
 import { useRef } from "react";
 import { Perf } from "r3f-perf";
 import * as THREE from "three";
-softShadows({
-	frustum: 3.75,
-	size: 0.005,
-	near: 9.5,
-	samples: 17,
-	rings: 11,
-});
+
+// softShadows({
+// 	frustum: 3.75,
+// 	size: 0.005,
+// 	near: 9.5,
+// 	samples: 17,
+// 	rings: 11 ,
+// });
 
 export default function Experience() {
 	const cube = useRef();
 	const directionLightRef = useRef();
-	useHelper(directionLightRef, THREE.DirectionalLightHelper, 0.5, "hotpink");
+	// useHelper(directionLightRef, THREE.DirectionalLightHelper, 0.5, "hotpink");
 
 	useFrame((state, delta) => {
 		cube.current.rotation.y += delta * 0.2;
@@ -27,11 +30,28 @@ export default function Experience() {
 
 	return (
 		<>
-			<BakeShadows />
+			{/* <BakeShadows /> */}
 			<Perf position='top-left' />
 
 			<OrbitControls makeDefault />
 
+			<AccumulativeShadows
+				position={[0, -0.99, 0]}
+				scale={10}
+				color='#316d39'
+				opacity={0.8}
+				frames={Infinity}
+				temporal
+				blend={100}>
+				<RandomizedLight
+					amount={8}
+					intensity={1}
+					bias={0.001}
+					radius={1}
+					ambient={0.5}
+					position={[1, 2, 3]}
+				/>
+			</AccumulativeShadows>
 			<directionalLight
 				position={[1, 2, 3]}
 				intensity={1.5}
@@ -57,11 +77,7 @@ export default function Experience() {
 				<meshStandardMaterial color='mediumpurple' />
 			</mesh>
 
-			<mesh
-				receiveShadow
-				position-y={-1}
-				rotation-x={-Math.PI * 0.5}
-				scale={10}>
+			<mesh position-y={-1} rotation-x={-Math.PI * 0.5} scale={10}>
 				<planeGeometry />
 				<meshStandardMaterial color='greenyellow' />
 			</mesh>
