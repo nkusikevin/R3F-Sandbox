@@ -1,11 +1,11 @@
+import React, { Suspense } from "react";
 import { OrbitControls } from "@react-three/drei";
 import { Perf } from "r3f-perf";
-import { useLoader } from "@react-three/fiber";
-import { GLTFLoader } from "three/examples/jsm/loaders/GLTFLoader";
+import Model from "./Model";
+import Ford from "./Ford";
+import PlaceHolder from "./PlaceHolder";
 
 export default function Experience() {
-	const gltf = useLoader(GLTFLoader, "./car13/scene.gltf");
-
 	return (
 		<>
 			<Perf position='top-left' />
@@ -14,16 +14,6 @@ export default function Experience() {
 
 			<directionalLight castShadow position={[1, 2, 3]} intensity={1.5} />
 			<ambientLight intensity={0.5} />
-
-			{/* <mesh castShadow position-x={-2}>
-				<sphereGeometry />
-				<meshStandardMaterial color='orange' />
-			</mesh> */}
-
-			{/* <mesh castShadow position-x={2} scale={1.5}>
-				<boxGeometry />
-				<meshStandardMaterial color='mediumpurple' />
-			</mesh> */}
 
 			<mesh
 				receiveShadow
@@ -34,7 +24,10 @@ export default function Experience() {
 				<meshStandardMaterial color='#36454F' />
 			</mesh>
 
-			<primitive object={gltf.scene} scale={1} position-y={0} />
+			<Suspense fallback={<PlaceHolder position-y={0.5} scale={[2, 3, 2]} />}>
+				{/* <Model /> */}
+				<Ford scale={0.35} />
+			</Suspense>
 		</>
 	);
 }
