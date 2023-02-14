@@ -2,34 +2,15 @@ import React, { Suspense } from "react";
 import { useGLTF, Clone } from "@react-three/drei";
 
 function Model() {
-	const gltf = useGLTF("./ford_mustang_gt.glb");
+	const car = useGLTF("./car13/scene.gltf");
+	console.log(car);
 	return (
-		<group>
-			<Clone
-				object={gltf.scene}
-				scale={1}
-				position-y={0}
-				position-x={-4}
-				position-z={0}
-				rotation-y={0}
-			/>
-			<Clone
-				object={gltf.scene}
-				scale={1}
-				position-y={0}
-				position-x={0}
-				position-z={0}
-				rotation-y={0}
-			/>
-			<Clone
-				object={gltf.scene}
-				scale={1}
-				position-y={0}
-				position-x={4}
-				position-z={0}
-				rotation-y={0}
-			/>
-		</group>
+		<primitive
+			object={car.scene}
+			// scale={0.02}
+			// position={[-2.5, 0, 2.5]}
+			// rotation-y={0.3}
+		/>
 	);
 }
 

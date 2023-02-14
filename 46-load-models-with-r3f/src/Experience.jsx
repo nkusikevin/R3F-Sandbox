@@ -3,6 +3,7 @@ import { OrbitControls } from "@react-three/drei";
 import { Perf } from "r3f-perf";
 import Model from "./Model";
 import Ford from "./Ford";
+import Fox from "./Fox";
 import PlaceHolder from "./PlaceHolder";
 
 export default function Experience() {
@@ -25,8 +26,9 @@ export default function Experience() {
 			</mesh>
 
 			<Suspense fallback={<PlaceHolder position-y={0.5} scale={[2, 3, 2]} />}>
-				{/* <Model /> */}
-				<Ford scale={0.35} />
+				<Model />
+				{/* <Ford scale={0.35} /> */}
+				<Fox scale={0.5} />
 			</Suspense>
 		</>
 	);
