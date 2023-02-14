@@ -1,0 +1,11 @@
+Model Information:
+* title:	car#13
+* source:	https://sketchfab.com/3d-models/car13-d827624d43664f3aacbb5ab60811e996
+* author:	LEGENDS-STORE (https://sketchfab.com/592818)
+
+Model License:
+* license type:	CC-BY-4.0 (http://creativecommons.org/licenses/by/4.0/)
+* requirements:	Author must be credited. Commercial use is allowed.
+
+If you use this 3D model in your project be sure to copy paste this credit wherever you share it:
+This work is based on "car#13" (https://sketchfab.com/3d-models/car13-d827624d43664f3aacbb5ab60811e996) by LEGENDS-STORE (https://sketchfab.com/592818) licensed under CC-BY-4.0 (http://creativecommons.org/licenses/by/4.0/)
