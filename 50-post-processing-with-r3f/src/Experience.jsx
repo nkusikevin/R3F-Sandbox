@@ -7,20 +7,22 @@ import {
 	Noise,
 	Bloom,
 	DepthOfField,
+	SSR,
 } from "@react-three/postprocessing";
 import { BlendFunction, GlitchMode } from "postprocessing";
+import Effect from "./Effects";
 
 export default function Experience() {
 	return (
 		<>
 			<color attach='background' args={["#fff"]} />
 			<EffectComposer multisampling={8}>
-				{/* <Vignette
+				<Vignette
 					eskil={false}
 					offset={0.1}
 					darkness={1.1}
 					blendFunction={BlendFunction.NORMAL}
-				/> */}
+				/>
 				{/* <Glitch
 					delay={[0.5, 1.5]}
 					duration={[0.1, 0.5]}
@@ -32,20 +34,19 @@ export default function Experience() {
 
 				{/* <Noise blendFunction={BlendFunction.SOFT_LIGHT} opacity={0.1} /> */}
 
-				{/* <Bloom
+				<Bloom
 					mipmapBlur
-					blendFunction={BlendFunction.COLOR_DODGE}
-					kernelSize={Bloom.KernelSize.LARGE}
 					luminanceThreshold={0}
 					luminanceSmoothing={0.025}
 					intensity={0.1}
 					height={300}
-				/> */}
+				/>
 				<DepthOfField
 					focalLength={0.025}
 					focusDistance={0.025}
 					bokehScale={6}
 				/>
+				<Effect />
 			</EffectComposer>
 
 			<Perf position='top-left' />
@@ -71,7 +72,7 @@ export default function Experience() {
 				rotation-x={-Math.PI * 0.5}
 				scale={10}>
 				<planeGeometry />
-				<meshStandardMaterial color='greenyellow' />
+				<meshStandardMaterial color='black' metalness={0} roughness={0} />
 			</mesh>
 		</>
 	);
