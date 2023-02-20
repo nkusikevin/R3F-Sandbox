@@ -6,13 +6,14 @@ import {
 	Glitch,
 	Noise,
 	Bloom,
+	DepthOfField,
 } from "@react-three/postprocessing";
 import { BlendFunction, GlitchMode } from "postprocessing";
 
 export default function Experience() {
 	return (
 		<>
-			<color attach='background' args={["#000"]} />
+			<color attach='background' args={["#fff"]} />
 			<EffectComposer multisampling={8}>
 				{/* <Vignette
 					eskil={false}
@@ -31,14 +32,19 @@ export default function Experience() {
 
 				{/* <Noise blendFunction={BlendFunction.SOFT_LIGHT} opacity={0.1} /> */}
 
-				<Bloom
+				{/* <Bloom
 					mipmapBlur
-					// blendFunction={BlendFunction.COLOR_DODGE}
-					// kernelSize={Bloom.KernelSize.LARGE}
+					blendFunction={BlendFunction.COLOR_DODGE}
+					kernelSize={Bloom.KernelSize.LARGE}
 					luminanceThreshold={0}
-					// luminanceSmoothing={0.025}
+					luminanceSmoothing={0.025}
 					intensity={0.1}
-					// height={300}
+					height={300}
+				/> */}
+				<DepthOfField
+					focalLength={0.025}
+					focusDistance={0.025}
+					bokehScale={6}
 				/>
 			</EffectComposer>
 
@@ -51,12 +57,12 @@ export default function Experience() {
 
 			<mesh castShadow position-x={-2}>
 				<sphereGeometry />
-				<meshStandardMaterial color={[5, 2, 1]} toneMapped={false} />
+				<meshStandardMaterial color='green' />
 			</mesh>
 
 			<mesh castShadow position-x={2} scale={1.5}>
 				<boxGeometry />
-				<meshStandardMaterial color='orange' toneMapped={false} />
+				<meshStandardMaterial color='orange' />
 			</mesh>
 
 			<mesh
