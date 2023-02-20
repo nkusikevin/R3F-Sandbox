@@ -11,18 +11,26 @@ import {
 } from "@react-three/postprocessing";
 import { BlendFunction, GlitchMode } from "postprocessing";
 import Effect from "./Effects";
+import DrunkEffect from "./Drunk";
+import { useRef } from "react";
+import { useControls } from "leva";
 
 export default function Experience() {
+	const Drunkref = useRef();
+	const drunkProps = useControls("Drunk Effect", {
+		frequency: { value: 2, min: 1, max: 20 },
+		amplitude: { value: 0.1, min: 0, max: 1 },
+	});
 	return (
 		<>
 			<color attach='background' args={["#fff"]} />
 			<EffectComposer multisampling={8}>
-				<Vignette
+				{/* <Vignette
 					eskil={false}
 					offset={0.1}
 					darkness={1.1}
 					blendFunction={BlendFunction.NORMAL}
-				/>
+				/> */}
 				{/* <Glitch
 					delay={[0.5, 1.5]}
 					duration={[0.1, 0.5]}
@@ -33,20 +41,25 @@ export default function Experience() {
 				/> */}
 
 				{/* <Noise blendFunction={BlendFunction.SOFT_LIGHT} opacity={0.1} /> */}
-
+				{/* 
 				<Bloom
 					mipmapBlur
 					luminanceThreshold={0}
 					luminanceSmoothing={0.025}
 					intensity={0.1}
 					height={300}
-				/>
-				<DepthOfField
+				/> */}
+				{/* <DepthOfField
 					focalLength={0.025}
 					focusDistance={0.025}
 					bokehScale={6}
+				/> */}
+				{/* <Effect /> */}
+				<DrunkEffect
+					ref={Drunkref}
+					{...drunkProps}
+					BlendFunction={BlendFunction.DARKEN}
 				/>
-				<Effect />
 			</EffectComposer>
 
 			<Perf position='top-left' />
@@ -72,7 +85,7 @@ export default function Experience() {
 				rotation-x={-Math.PI * 0.5}
 				scale={10}>
 				<planeGeometry />
-				<meshStandardMaterial color='black' metalness={0} roughness={0} />
+				<meshStandardMaterial color='greenyellow' metalness={0} roughness={0} />
 			</mesh>
 		</>
 	);
