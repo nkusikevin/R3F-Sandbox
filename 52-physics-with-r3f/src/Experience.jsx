@@ -8,10 +8,11 @@ import {
 	CuboidCollider,
 	BallCollider,
 	CylinderCollider,
+	InstancedRigidBodies,
 } from "@react-three/rapier";
 import { useFrame } from "@react-three/fiber";
 import * as THREE from "three";
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import Model from "./Model";
 
 export default function Experience() {
@@ -44,10 +45,24 @@ export default function Experience() {
 	});
 
 	const onCollide = () => {
-		hitSound.currentTime = 0;
-		hitSound.volume = Math.random();
-		hitSound.play();
+		// hitSound.currentTime = 0;
+		// hitSound.volume = Math.random();
+		// hitSound.play();
 	};
+
+	const count = 10;
+	const cubesCount = useRef();
+	useEffect(() => {
+		for (let i = 0; i < cubesCount; i++) {
+			const matrix = new THREE.Matrix4();
+			matrix.compose(
+				new THREE.Vector3(i * 2, 0, 0),
+				new THREE.Quaternion(),
+				new THREE.Vector3(1, 1, 1)
+			);
+			cubes.current.setMatrixAt(i, matrix);
+		}
+	}, []);
 	return (
 		<>
 			<Perf position='top-left' />
@@ -97,6 +112,21 @@ export default function Experience() {
 					<Model />
 					<CylinderCollider args={[0.5, 1.25]} />
 				</RigidBody>
+				<RigidBody type='fixed'>
+					<CuboidCollider args={[5, 2, 0.5]} position={[0, 1, 5.5]} />
+					<CuboidCollider args={[5, 2, 0.5]} position={[0, 1, -5.5]} />
+					<CuboidCollider args={[0.5, 2, 5]} position={[5.5, 1, 0]} />
+					<CuboidCollider args={[0.5, 2, 5]} position={[-5.5, 1, 0]} />
+				</RigidBody>
+				<InstancedRigidBodies>
+					<instancedMesh
+						receiveShadow
+						args={[null, null, count]}
+						ref={cubesCount}>
+						<boxGeometry />
+						<meshStandardMaterial color='tomato' />
+					</instancedMesh>
+				</InstancedRigidBodies>
 			</Physics>
 		</>
 	);
