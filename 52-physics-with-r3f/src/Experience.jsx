@@ -12,7 +12,7 @@ import {
 } from "@react-three/rapier";
 import { useFrame } from "@react-three/fiber";
 import * as THREE from "three";
-import { useState, useEffect } from "react";
+import { useState, useEffect, useMemo } from "react";
 import Model from "./Model";
 
 export default function Experience() {
@@ -50,18 +50,37 @@ export default function Experience() {
 		// hitSound.play();
 	};
 
-	const count = 10;
+	const count = 100;
 	const cubesCount = useRef();
-	useEffect(() => {
+	// useEffect(() => {
+	// 	for (let i = 0; i < cubesCount; i++) {
+	// 		const matrix = new THREE.Matrix4();
+	// 		matrix.compose(
+	// 			new THREE.Vector3(i * 2, 0, 0),
+	// 			new THREE.Quaternion(),
+	// 			new THREE.Vector3(1, 1, 1)
+	// 		);
+	// 		cubes.current.setMatrixAt(i, matrix);
+	// 	}
+	// }, []);
+	const cubeTransforms = useMemo(() => {
+		const positions = [];
+		const rotations = [];
+		const scales = [];
+
 		for (let i = 0; i < cubesCount; i++) {
-			const matrix = new THREE.Matrix4();
-			matrix.compose(
-				new THREE.Vector3(i * 2, 0, 0),
-				new THREE.Quaternion(),
-				new THREE.Vector3(1, 1, 1)
-			);
-			cubes.current.setMatrixAt(i, matrix);
+			positions.push([
+				(Math.random() - 0.5) * 8,
+				6 + i * 0.2,
+				(Math.random() - 0.5) * 8,
+			]);
+			rotations.push([Math.random(), Math.random(), Math.random()]);
+
+			const scale = 0.2 + Math.random() * 0.8;
+			scales.push([scale, scale, scale]);
 		}
+
+		return { positions, rotations, scales };
 	}, []);
 	return (
 		<>
@@ -72,7 +91,7 @@ export default function Experience() {
 			<directionalLight castShadow position={[1, 2, 3]} intensity={1.5} />
 			<ambientLight intensity={0.5} />
 			<Physics gravity={[0, -9.08, 0]}>
-				<Debug />
+				{/* <Debug /> */}
 				<RigidBody colliders='ball'>
 					<mesh castShadow position={[-2, 4, 0]}>
 						<sphereGeometry />
@@ -122,7 +141,10 @@ export default function Experience() {
 					<instancedMesh
 						receiveShadow
 						args={[null, null, count]}
-						ref={cubesCount}>
+						ref={cubesCount}
+						positions={cubeTransforms.positions}
+						rotations={cubeTransforms.rotations}
+						scales={cubeTransforms.scales}>
 						<boxGeometry />
 						<meshStandardMaterial color='tomato' />
 					</instancedMesh>
