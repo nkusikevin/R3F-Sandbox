@@ -7,13 +7,18 @@ import {
 	RigidBody,
 	CuboidCollider,
 	BallCollider,
+	CylinderCollider,
 } from "@react-three/rapier";
 import { useFrame } from "@react-three/fiber";
 import * as THREE from "three";
+import { useState } from "react";
+import Model from "./Model";
 
 export default function Experience() {
 	const cube = useRef();
 	const twister = useRef();
+
+	const [hitSound] = useState(() => new Audio("/hit.mp3"));
 
 	const cubeJump = () => {
 		const mass = cube.current.mass();
@@ -37,6 +42,12 @@ export default function Experience() {
 		const z = Math.sin(angle) * 2;
 		twister.current.setNextKinematicTranslation({ x, y: -0.8, z });
 	});
+
+	const onCollide = () => {
+		hitSound.currentTime = 0;
+		hitSound.volume = Math.random();
+		hitSound.play();
+	};
 	return (
 		<>
 			<Perf position='top-left' />
@@ -53,7 +64,12 @@ export default function Experience() {
 						<meshStandardMaterial color='orange' />
 					</mesh>
 				</RigidBody>
-				<RigidBody colliders={false} ref={cube} restitution={0} friction={0.7}>
+				<RigidBody
+					colliders={false}
+					ref={cube}
+					restitution={0}
+					friction={0.7}
+					onCollisionEnter={onCollide}>
 					<mesh castShadow onClick={cubeJump}>
 						<boxGeometry />
 						<meshStandardMaterial color='mediumpurple' />
@@ -75,6 +91,11 @@ export default function Experience() {
 						<boxGeometry />
 						<meshStandardMaterial color='red' />
 					</mesh>
+				</RigidBody>
+
+				<RigidBody colliders={false} position={[0, 4, 0]}>
+					<Model />
+					<CylinderCollider args={[0.5, 1.25]} />
 				</RigidBody>
 			</Physics>
 		</>
