@@ -1,12 +1,22 @@
 import React from "react";
+import * as THREE from "three";
+
+const boxGeometry = new THREE.BoxGeometry(1, 1, 1);
+
+const floor1Material = new THREE.MeshStandardMaterial({ color: "limegreen" });
+const floor2Material = new THREE.MeshStandardMaterial({ color: "greenyellow" });
+const obstacleMaterial = new THREE.MeshStandardMaterial({ color: "orangered" });
+const wallMaterial = new THREE.MeshStandardMaterial({ color: "slategrey" });
 
 function BockStart({ position }) {
 	return (
 		<group position={position}>
-			<mesh receiveShadow p>
-				<boxGeometry args={[4, 0.2, 4]} />
-				<meshStandardMaterial color='limegreen' />
-			</mesh>
+			<mesh
+				geometry={boxGeometry}
+				position={[0, -0.1, 0]}
+				scale={[4, 0.2, 4]}
+				receiveShadow
+				material={floor1Material}></mesh>
 		</group>
 	);
 }
@@ -14,7 +24,7 @@ function BockStart({ position }) {
 function Level() {
 	return (
 		<>
-			<BockStart osition={[0, -0.1, 0]} />
+			<BockStart osition={[0, 0, 0]} />
 		</>
 	);
 }
