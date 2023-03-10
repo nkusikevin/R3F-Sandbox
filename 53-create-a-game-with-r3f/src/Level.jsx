@@ -1,10 +1,14 @@
 import React from "react";
 import * as THREE from "three";
+import TrapSpinner from "./TrapSpinner";
+import LimboBlock from "./LimboBlock";
+
+THREE.ColorManagement.legacyMode = false;
 
 const boxGeometry = new THREE.BoxGeometry(1, 1, 1);
 
 const floor1Material = new THREE.MeshStandardMaterial({ color: "limegreen" });
-const floor2Material = new THREE.MeshStandardMaterial({ color: "greenyellow" });
+
 const obstacleMaterial = new THREE.MeshStandardMaterial({ color: "orangered" });
 const wallMaterial = new THREE.MeshStandardMaterial({ color: "slategrey" });
 
@@ -24,7 +28,9 @@ function BockStart({ position }) {
 function Level() {
 	return (
 		<>
-			<BockStart osition={[0, 0, 0]} />
+			<BockStart position={[0, 0, 8]} />
+			<TrapSpinner position={[0, 0, 4]} />
+			<LimboBlock position={[0, 0, 0]} />
 		</>
 	);
 }
