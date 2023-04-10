@@ -2,6 +2,7 @@ import React from "react";
 import * as THREE from "three";
 import TrapSpinner from "./TrapSpinner";
 import LimboBlock from "./LimboBlock";
+import AxeBlock from "./AxeBlock";
 
 THREE.ColorManagement.legacyMode = false;
 
@@ -28,9 +29,10 @@ function BockStart({ position }) {
 function Level() {
 	return (
 		<>
-			<BockStart position={[0, 0, 8]} />
-			<TrapSpinner position={[0, 0, 4]} />
-			<LimboBlock position={[0, 0, 0]} />
+			<BockStart position={[0, 0, 12]} />
+			<TrapSpinner position={[0, 0, 8]} />
+			<LimboBlock position={[0, 0, 4]} />
+			<AxeBlock position={[0, 0, 0]} />
 		</>
 	);
 }
