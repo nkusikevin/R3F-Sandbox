@@ -14,7 +14,11 @@ function LimboBlock({ position }) {
 	useFrame((state) => {
 		const time = state.clock.getElapsedTime();
 		const y = Math.sin(time + timeOffset) + 1.15;
-		obstacle.current.setNextKinematicTranslation({ x: 0, y: y, z: 0 });
+		obstacle.current.setNextKinematicTranslation({
+			x: position[0],
+			y: position[1] + y,
+			z: position[2],
+		});
 	});
 	return (
 		<group position={position}>
